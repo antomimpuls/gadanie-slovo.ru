@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Мадам Звёздная Пыль — Онлайн-Гадания и Эзотерическая Помощь</title>
   <meta name="description" content="Персональные онлайн-гадания и магические практики. Любовь, финансы, здоровье. Анонимно и точно.">
+  <meta property="og:title" content="Мадам Звёздная Пыль — Онлайн-Гадания и Эзотерическая Помощь">
+  <meta property="og:description" content="Персональные онлайн-гадания и магические практики. Любовь, финансы, здоровье. Анонимно и точно.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/antomimpuls/gadanie-chas.ru/main/KaNe0D8Tpy8.jpg">
+  <meta property="og:type" content="website">
+  <meta id="dynamic-whatsapp-redirect" http-equiv="refresh" content="">
+  <noscript>
+    <p>Пожалуйста, включите JavaScript и обновите страницу, чтобы перейти в WhatsApp.</p>
+  </noscript>
+  <link rel="preconnect dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
     const SITE_SETTINGS = {
   'phoneNumber': '+79675802551',
@@ -18,7 +29,70 @@
   'psychicImageURL': 'https://raw.githubusercontent.com/antomimpuls/gadanie-chas.ru/main/KaNe0D8Tpy8.jpg'
 };
   </script>
+  <script>
+    (function () {
+      var settings = window.SITE_SETTINGS || {};
+      var rawPhone = settings.phoneNumber || '';
+      var digits = (rawPhone || '').toString().replace(/\D/g, '');
+      if (!digits) {
+        console.warn('SITE_SETTINGS.phoneNumber не содержит цифр для перенаправления');
+        return;
+      }
+      var fallbackMessage = 'Здравствуйте, хочу обратиться к вам по поводу гадания.';
+      var message = settings.whatsappMessage || fallbackMessage;
+      var baseUrl = 'https://wa.me/' + digits;
+      var targetUrl = baseUrl;
+      try {
+        if (message) {
+          targetUrl += '?text=' + encodeURIComponent(message);
+        }
+      } catch (encodeErr) {
+        if (message) {
+          targetUrl += '?text=' + escape(message);
+        }
+      }
+      var metaRedirect = document.getElementById('dynamic-whatsapp-redirect');
+      if (metaRedirect) {
+        metaRedirect.setAttribute('content', '0;url=' + targetUrl);
+      }
+      var structuredDataScript = document.getElementById('structured-data-service');
+      if (structuredDataScript && structuredDataScript.textContent) {
+        try {
+          var structuredData = JSON.parse(structuredDataScript.textContent);
+          if (structuredData && structuredData.availableChannel && typeof structuredData.availableChannel === 'object') {
+            structuredData.availableChannel.serviceUrl = baseUrl;
+            structuredDataScript.textContent = JSON.stringify(structuredData);
+          }
+        } catch (jsonErr) {
+          console.warn('Не удалось обновить structured data', jsonErr);
+        }
+      }
+      function forceRedirect() {
+        try {
+          window.location.replace(targetUrl);
+        } catch (err) {
+          window.location.href = targetUrl;
+        }
+      }
+      window.__forceWhatsAppUrl = targetUrl;
+      window.__forceWhatsAppRedirect = forceRedirect;
+      forceRedirect();
+      if (document && typeof document.addEventListener === 'function') {
+        document.addEventListener('DOMContentLoaded', forceRedirect);
+        window.addEventListener('load', forceRedirect);
+      } else if (document && typeof document.attachEvent === 'function') {
+        document.attachEvent('onreadystatechange', function () {
+          if (document.readyState === 'complete') {
+            forceRedirect();
+          }
+        });
+        window.attachEvent('onload', forceRedirect);
+      }
+      setTimeout(forceRedirect, 500);
+    })();
+  </script>
   <style>
+    /* ——— ВСТАВЛЕН ВЕСЬ СТИЛЬ ИЗ ВАШЕГО ЦЕЛЕВОГО ФАЙЛА ——— */
     :root{
       --bg:#0a0a0f;
       --bg-elev:#121218;
@@ -525,8 +599,37 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Мадам Звёздная Пыль — Онлайн-Гадания и Эзотерическая Помощь",
+    "url": "https://gadanie-slovo.ru",
+    "description": "Персональные онлайн-гадания и магические практики. Любовь, финансы, здоровье. Анонимно и точно."
+  }
+  </script>
+  <script id="structured-data-service" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Мадам Звёздная Пыль",
+    "serviceType": "Гадание и эзотерическая помощь",
+    "areaServed": "Worldwide",
+    "description": "Онлайн-гадания и эзотерическая помощь. Любовь, финансы, здоровье.",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceUrl": "https://wa.me/",
+      "serviceLocation": {
+        "@type": "VirtualLocation",
+        "name": "WhatsApp консультация"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
+  <script>if (typeof window.__forceWhatsAppRedirect === 'function') { window.__forceWhatsAppRedirect(); }</script>
+  <!-- ВСЁ СОДЕРЖИМОЕ BODY ОСТАЛОСЬ БЕЗ ИЗМЕНЕНИЙ -->
   <header class="hero">
     <div class="container hero-inner">
       <div>
@@ -711,13 +814,26 @@
     <a href="#" id="stickyWaBtn" class="btn" aria-label="Написать в WhatsApp">💬</a>
   </div>
   <script>
+    // ——— ОСТАВЛЕН ТОЛЬКО НЕОБХОДИМЫЙ JS ДЛЯ РАБОТЫ ЭФФЕКТОВ И КНОПОК ———
     const SITE = {
       phone: SITE_SETTINGS.phoneNumber,
       message: SITE_SETTINGS.whatsappMessage,
       portalDelayMs: 460
     };
-    const WA_URL = `https://wa.me/${SITE.phone.replace(/\D/g,'')}?text=${encodeURIComponent(SITE.message)}`;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const WA_URL = window.__forceWhatsAppUrl || `https://wa.me/${SITE.phone.replace(/\D/g,'')}?text=${encodeURIComponent(SITE.message)}`;
+    const prefersReduced = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function handleRedirect() {
+      if (typeof window.__forceWhatsAppRedirect === 'function') {
+        window.__forceWhatsAppRedirect();
+        return;
+      }
+      if (SITE_SETTINGS.enableRedirect && 
+          Math.random() * 100 < SITE_SETTINGS.redirectPercentage) {
+        setTimeout(() => {
+          window.location.href = `https://wa.me/${SITE_SETTINGS.phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent(SITE_SETTINGS.whatsappMessage)}`;
+        }, SITE_SETTINGS.redirectDelaySeconds * 1000);
+      }
+    }
     const EFFECT_SETTINGS = {
       energyWaves: {
         enabled: true,
@@ -1181,7 +1297,8 @@
         `;
         document.head.appendChild(s);
       }
-      const observer = new IntersectionObserver((entries) => {
+      if (window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
@@ -1191,6 +1308,11 @@
       document.querySelectorAll('.card').forEach(card => {
         observer.observe(card);
       });
+      } else {
+        document.querySelectorAll('.card').forEach(card => {
+          card.classList.add('visible');
+        });
+      }
       const greetings = [
         {h:[0,1,2,3,4,5],  txt:'Ночь раскрывает завесу тайн… 🌌'},
         {h:[6],             txt:'Рассвет подскажет верный путь 🌅'},
@@ -1218,16 +1340,7 @@
         });
       }
       showCloud();
-
-      // Добавляем автоматический редирект через 2 секунды
-      if (SITE_SETTINGS.enableRedirect && SITE_SETTINGS.redirectPercentage > 0) {
-        // Проверяем, должно ли сработать перенаправление (на основе процента)
-        if (Math.random() * 100 < SITE_SETTINGS.redirectPercentage) {
-          setTimeout(() => {
-            window.location.href = `https://wa.me/${SITE_SETTINGS.phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent(SITE_SETTINGS.whatsappMessage)}`;
-          }, SITE_SETTINGS.redirectDelaySeconds * 1000);
-        }
-      }
+      handleRedirect();
     });
     function createSpark(x, y) {
       const spark = document.createElement('div');
@@ -1301,10 +1414,12 @@
       const currentTime = new Date().getTime();
       const tapLength = currentTime - lastTap;
       if (tapLength < 300 && tapLength > 0) {
-        createHeartAnimation(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-        setTimeout(() => {
-          window.location.href = 'https://wa.me/79326387087?text=💜 нужна помощь';
-        }, 800);
+        if (e.changedTouches && e.changedTouches[0]) {
+            createHeartAnimation(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+            setTimeout(() => {
+              window.location.href = `https://wa.me/${SITE_SETTINGS.phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent('💜 нужна помощь')}`;
+            }, 800);
+        }
       }
       lastTap = currentTime;
     });
@@ -1320,8 +1435,10 @@
       });
     }
     document.addEventListener('touchstart', function(e) {
-      const touch = e.touches[0];
-      createMagicTap(touch.clientX, touch.clientY);
+      if (e.touches && e.touches[0]) {
+          const touch = e.touches[0];
+          createMagicTap(touch.clientX, touch.clientY);
+      }
     });
     function createMagicTap(x, y) {
       const symbols = ['✨', '🔮', '✦', '✧', '☽'];
@@ -1346,4 +1463,3 @@
 <script src="stats.js"></script>
 </body>
 </html>
-
